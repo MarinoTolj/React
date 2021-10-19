@@ -2,7 +2,7 @@ import React from "react";
 import "./list.css"
 
 export function List({list, handleRemove}){
-
+    
     return(<div>
         {list.map((item, index)=>(
             <form id="itemList">

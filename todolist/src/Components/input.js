@@ -1,37 +1,27 @@
 import React, { useState } from "react";
 import "./Input.css";
-import { List } from "./List";
+import { List } from "./list";
 
 
 export function Input(){
 
-    const [inputText, setInputText]=useState("")
     const [list, setList]=useState([""])
 
-    const handleChange=(event)=>{
-        setInputText(event.target.value);
-    }
-
     const handleInput=(event)=>{
+        let text=document.getElementById("input").value;
+        event.preventDefault();
 
-        console.log(inputText)
-
-        if(inputText){
+        if(text){
             setList((prev)=>{
-                return [...prev, inputText]
+                return [...prev, text]
             });
         }
-
-        setInputText("");
-
-        console.log(list);
-        event.preventDefault();
+        
     }
 
     const handleRemove=(targetIndex, e)=>{
 
         e.preventDefault();
-        console.log("hello");
 
         setList((prev)=>{
             return prev.filter((item, index)=> index !== targetIndex)
@@ -42,7 +32,7 @@ export function Input(){
 
     return(
         <form >
-            <input type="text" id="input" onChange={handleChange}></input>
+            <input type="text" id="input"></input>
 
             <button id="inputBtn"  type="submit" onClick={handleInput}>Submit</button>
             <List list={list} handleRemove={handleRemove}/>
