@@ -1,0 +1,35 @@
+#balance{
+    /* background-color: green; */  
+    display: grid;
+    
+}
+
+#balance-title{
+    font-size: 1.4em;
+    font-weight: normal;
+    /* padding-bottom: 10p; */
+}
+
+#balance-value{
+    /* background-color: tomato; */
+    font-size: 2rem;
+}
+
+#income-expense{
+    /* background-color: tomato; */
+    display: grid;
+}
+
+#income{
+   /*  background-color: turquoise; */
+    grid-row-start: 1;
+    grid-column-start: 2;
+    
+    color: green;
+}
+
+#expense{
+    grid-row-start: 1;
+    grid-column-start: 3;
+    color:red;
+}

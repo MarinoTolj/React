@@ -1,0 +1,19 @@
+#history{
+    display: grid;
+}
+
+.income{
+    grid-column-start: 7;
+    color:green
+}
+
+.expense{
+    grid-column-start: 7;
+    color:red;
+    border-color: black;
+}
+
+.zero-amount{
+    grid-column-start: 7;
+    color:grey;
+}
