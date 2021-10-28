@@ -1,0 +1,49 @@
+#history{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: flex-start;
+   
+    
+}
+
+.plus{
+    color:green;
+    padding-left: 90%;
+}
+
+.minus{
+    padding-left: 90%;
+    color:red;
+}
+
+.zero-amount{
+    padding-left: 90%;
+    color:grey;
+}
+
+.transaction-text{
+    flex-shrink: 100;
+    flex-grow: 2;
+}
+
+.delete-btn{
+    
+    /* display: none; */
+} 
+/* #history:hover   */
+
+.delete-btn{
+    /* display: flex; */
+    
+    cursor: pointer;
+    background-color: red;
+    box-shadow: green;
+    color: #fff;
+    border: 0;
+    
+    font-size: 16px;
+    margin: 10px 0px 10px;
+    padding: 10px 4px;
+    width: 30px; 
+}
