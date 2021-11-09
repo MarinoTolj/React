@@ -16,6 +16,5 @@ export default function HistoryList(){
             ))}
         </div>
         
-        
     </div>)
 }

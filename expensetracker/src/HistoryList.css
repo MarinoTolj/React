@@ -29,12 +29,12 @@
 
 .delete-btn{
     
-    /* display: none; */
+     display: none; 
 } 
 /* #history:hover   */
 
-.delete-btn{
-    /* display: flex; */
+#history:hover .delete-btn{
+    display: flex; 
     
     cursor: pointer;
     background-color: red;

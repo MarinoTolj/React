@@ -1,0 +1,11 @@
+#create-exercise-form{
+    display: flex;
+    flex-direction: column;
+    margin:0% 25%;
+    row-gap: 1em;
+}
+
+#title{
+    display: flex;
+    justify-content: center;
+}
