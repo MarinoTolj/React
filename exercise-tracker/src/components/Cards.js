@@ -1,10 +1,10 @@
 import React from 'react'
-import ChestImage from "../images/chest.jpg"
+
 import { Button, Card, Container} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import "../ExercisesList.css"
 import {useSelector} from "react-redux"
-import {useEffect} from "react"
+
 
 export default function Cards({path}) {
 
