@@ -9,8 +9,8 @@ import NavBar from "./components/NavBar"
 import ExercisesList from './components/ExercisesList';
 import Home from './components/Home';
 import CreateNewExercise from './components/CreateNewExercise';
-import {useDispatch, useSelector} from "react-redux"
-import { resetRedux } from './actions';
+import {useSelector} from "react-redux"
+
 import TypeList from './components/TypeList';
 import CreateNewExerciseType from './components/CreateNewExerciseType';
 
@@ -18,9 +18,6 @@ import CreateNewExerciseType from './components/CreateNewExerciseType';
 
 
 function App() {
-  
-  const dispatch = useDispatch()
-  /* dispatch(resetRedux()) */
   const exercisesTypes =useSelector(state=>state.typesOfExercises.typesOfExercises)
 
   return (

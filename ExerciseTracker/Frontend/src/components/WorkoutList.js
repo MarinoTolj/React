@@ -1,9 +1,9 @@
 import React from 'react'
 import Workout from './Workout'
-import { Table,Container, Row, Col, Button} from 'react-bootstrap'
+import { Table,Container, Row, Col} from 'react-bootstrap'
 import {useSelector} from "react-redux"
 import "../Table.css"
-import Cards from "./Cards"
+
 
 
 
