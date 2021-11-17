@@ -13,7 +13,8 @@ import {useSelector} from "react-redux"
 
 import TypeList from './components/TypeList';
 import CreateNewExerciseType from './components/CreateNewExerciseType';
-
+import LoginPage from './components/LoginPage';
+import Registration from './components/Registration';
 
 
 
@@ -32,6 +33,8 @@ function App() {
           <Route path="/exercises" element={<ExercisesList />} /> 
             
           <Route path="/home" element={<Home />} />
+          <Route path="/users/login" element={<LoginPage />} />
+          <Route path="/users/registration" element={<Registration />} />
                       
           <Route path="/exercises/createNewExercise" element={<CreateNewExercise />} />
           <Route path="/exercises/createNewExerciseType" element={<CreateNewExerciseType />} />
