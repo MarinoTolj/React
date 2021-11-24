@@ -1,22 +1,33 @@
 import React from 'react'
-import { addWorkoutExercise, deleteAvailableExercise } from '../actions';
+import { addWorkoutExercise, deleteAvailableExercise, loadWorkoutExercises } from '../actions';
 import {useDispatch, useSelector} from "react-redux"
 import {Button} from "react-bootstrap"
 import "../Table.css"
+import {useEffect, useState} from "react"
+import { LoadWorkoutExercises } from '../reducers/workoutExercises';
 
 export default function Type({exercise}) {
 
     const workoutExercises=useSelector(state=>state.workoutExercises.exercises)
     const dispatch = useDispatch();
-
-    const handleAddition=(e)=>{
+    console.log("vjezba", exercise.exercise_id)
+    
+    const handleAddition=async(e)=>{
         e.preventDefault();
-        console.log(exercise.id)
+        try {
+            const response=await fetch("http://localhost:5000/userupdate",{
+                method:"POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({id:exercise.exercise_id})
+            })
+            const jsonmsg=await response.json()
 
-        if(!workoutExercises.includes(exercise))
-            dispatch(addWorkoutExercise(exercise))
-        else
-            alert("You can not choose same exercise.")
+            console.log(jsonmsg)
+
+        } catch (error) {
+            console.error(error)
+        }
+       dispatch(LoadWorkoutExercises())
     }
 
     const handleDelete=(e)=>{
@@ -24,12 +35,12 @@ export default function Type({exercise}) {
         dispatch(deleteAvailableExercise(exercise.id))
     }
 
-
+    
     return (
         <tr>
             <td className="table-data">
-                <b style={{color:"blue"}}>{exercise.title}</b> <br/>
-                {exercise.details}
+                <b style={{color:"blue"}}>{exercise.name}</b> <br/>
+                {exercise.description}
             </td>
 
             <td>

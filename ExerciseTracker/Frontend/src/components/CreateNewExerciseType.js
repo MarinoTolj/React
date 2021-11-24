@@ -5,6 +5,7 @@ import "../CreateNewExercise.css"
 import { createTypeOfExercise } from '../actions'
 import { useNavigate } from 'react-router-dom'
 import { Form, Button} from 'react-bootstrap'
+import {LoadTypes} from "../reducers/exercisesTypes"
 
 
 export default function CreateNewExerciseType() {
@@ -23,7 +24,25 @@ export default function CreateNewExerciseType() {
         })
     }
 
-    const handleRoute=()=>{
+    const handleRoute=async (e)=>{
+        e.preventDefault();
+        
+        try {
+            const response = await fetch("http://localhost:5000/exercises/createNewExerciseType",{
+                method:"POST",
+                headers:{"Content-Type": "application/json"},
+                body:JSON.stringify({type})
+                }
+            )
+            const jsgMsg=await response.json()
+            console.log("user", jsgMsg)
+
+        } catch (error) {
+            console.error(error)
+        }
+        dispatch(LoadTypes())
+
+
         navigate("/exercises")
     }
 

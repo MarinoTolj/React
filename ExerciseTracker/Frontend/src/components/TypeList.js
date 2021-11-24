@@ -2,23 +2,26 @@ import React from 'react'
 import { Table,Container, Row, Col, Button} from 'react-bootstrap'
 import {useSelector} from "react-redux"
 import "../Table.css"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Cards from "./Cards"
 import Type from "./Type"
+import {useEffect, useState} from "react"
 
 export default function TypeList({type}) {
 
     const exercises=useSelector(state=>state.availableExercises.allExercises)
-   
-    const typeExercises=exercises.filter(exercise=>exercise.type===type.type)
+    /* const {type} =useParams() */
+    console.log(type)
+    const [workoutExercises, setWorkoutExercises]=useState("")
+
+    const typeExercises=exercises.filter((item, index)=>item.exercise_type_id===type.exercise_type_id)
     const navigate=useNavigate()
 
     const handleRoute=(e)=>{
         e.preventDefault()
         navigate("/exercises")
-        console.log(typeExercises)
     }
-
+    console.log("Vjezbe, ", exercises)
 
     return (
       

@@ -3,27 +3,31 @@ import React from 'react'
 import { Button, Card, Container} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import "../ExercisesList.css"
-import {useSelector} from "react-redux"
-
+import {useSelector, useDispatch} from "react-redux"
+import ChestImage from "../images/chest.jpg"
+import {useEffect, useState} from "react"
+import {LoadTypes} from "../reducers/exercisesTypes"
 
 export default function Cards({path}) {
-
+    const [type, setType]=useState("")
+    const dispatch = useDispatch()
     const navigate=useNavigate()
-    const exercisesTypes=useSelector(state=>state.typesOfExercises.typesOfExercises)
+    const typesOfExercises=useSelector(state=>state.typesOfExercises.typesOfExercises)
 
     const handlePathChange=(e)=>{
         e.preventDefault()
+        
         navigate(`/exercises/${e.target.value}`)
-        path && navigate(`/exercises/${e.target.value}`)
+        /* path && navigate(`/exercises/${e.target.value}`) */
     }
-
-    const cardInfo=exercisesTypes.map((item) =>(
-        {
+    
+    const cardInfo=typesOfExercises.map((item, index)=>{
+        return {
             title:item.type,
-            imgSrc:localStorage.getItem(item.type),
+            imgSrc:ChestImage,
             value:item.type
         }
-    ))
+    })
 
     const renderCard=(card, index)=>{
         return(
@@ -37,10 +41,27 @@ export default function Cards({path}) {
         )
     }
 
+    /* async function fetchExerciseType(){
+        try {
+            const response = await fetch("http://localhost:5000/exercises")
+            return await response.json()
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchExerciseType().then(data => {
+            data && setType(data)
+        })
+    }, []) */
+
+
     return (
         <div>
             <Container id="cards-list">
                 {cardInfo.map(renderCard)}
+                {/* <Button type="submit" onClick={handlePathChange}>Read emore</Button> */}
             </Container>
             
         </div>

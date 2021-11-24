@@ -1,11 +1,11 @@
 import React from 'react'
-import WorkoutList from "./WorkoutList"
 
 export default function Home() {
     return (
         <div>
-            <h1>Your workout exercises</h1>
-            <WorkoutList />
+            <h1>Welcome to ExerciseTracker</h1>
+            <a href="/users/login">Login</a>
+            <a href="/users/registration">Register</a>
         </div>
     )
 }

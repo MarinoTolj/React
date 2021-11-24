@@ -9,14 +9,15 @@ export default function Workout({workoutExercise}) {
 
     const handleDelete=(e)=>{
         e.preventDefault();
+        console.log(workoutExercise.id)
         dispatch(deleteWorkoutExercise(workoutExercise.id))
     }
 
     return (
         <tr>
             <td className="table-data">
-                <b style={{color:"blue"}}>{workoutExercise.title}</b> <br/>
-                {workoutExercise.details}
+                <b style={{color:"blue"}}>{workoutExercise.name}</b> <br/>
+                {workoutExercise.description}
             </td>
             <td className="table-data">
                 <Button type="submit" style={{background:"red", border:"red"}} onClick={handleDelete}>Delete</Button>

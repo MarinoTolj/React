@@ -8,6 +8,7 @@ export default function Registration() {
     const [username, setUSername] =useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
     const navigate=useNavigate()
 
     const handleRegistration=async e=>{
@@ -18,16 +19,24 @@ export default function Registration() {
             const body={
                 username,
                 email,
-                password
+                password,
+                password2
             }
     
             const response=await fetch("http://localhost:5000/users/registration",{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body:JSON.stringify(body),
+                body:JSON.stringify(body)
             })
-            console.log(response)
-            navigate("/home")
+
+            const jsonData = await response.json()
+
+            if(jsonData.msg === "success"){
+                navigate("/users/login")
+            }else{
+                alert("Error: " + jsonData.msg)
+                navigate("/users/registration")
+            }
 
         } catch (error) {
             console.error(error.massage)
@@ -37,25 +46,24 @@ export default function Registration() {
 
     return (
         <Fragment>
-
         <Form id="registration-form">
             <Form.Group>
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" value={username} onChange={(e)=>setUSername(e.target.value)} placeholder="Enter your name" />
+                    <Form.Control type="text" value={username} onChange={(e)=>setUSername(e.target.value)} placeholder="Enter your name" required/>
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email" />
+                    <Form.Control type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email" required/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" />
+                    <Form.Control type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" required/>
                 </Form.Group>
-                {/* <Form.Group>
+                <Form.Group>
                     <Form.Label>Confirm your password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter your password" />
-                </Form.Group> */}
+                    <Form.Control type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} placeholder="Enter your password" required/>
+                </Form.Group>
                 <Button type="submit" class="btn m-2 btn-primary" onClick={handleRegistration}>Register</Button>
                 <Link to="/users/login">Already registered?Login here</Link>
             </Form>
