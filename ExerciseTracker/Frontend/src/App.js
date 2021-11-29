@@ -15,7 +15,7 @@ import User from "./components/User";
 import { LoadTypes } from "./reducers/exercisesTypes";
 import { LoadAvailableExercises } from "./reducers/availableExercises";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 function App() {
   const exercisesTypes = useSelector(
     (state) => state.typesOfExercises.typesOfExercises
