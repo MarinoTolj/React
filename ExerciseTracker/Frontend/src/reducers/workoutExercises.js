@@ -1,55 +1,63 @@
-import {loadWorkoutExercises, updateUserExercises} from "../actions"
+import { loadWorkoutExercises } from "../actions";
 
-const workoutExercisesReducer=(state={exercises:[]}, action)=>{
+const workoutExercisesReducer = (state = { exercises: [] }, action) => {
+  switch (action.type) {
+    case "RESET_WORKOUT_EXERCISES":
+      return {
+        ...state,
+        exercises: [],
+      };
+    case "LOAD_WORKOUT_EXERCISES":
+      return {
+        ...state,
+        exercises: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
-    switch(action.type){
-        case "ADD_WORKOUT_EXERCISE":
-            return{
-                ...state,
-                exercises:[action.payload, ...state.exercises]
-            }
-        case "DELETE_WORKOUT_EXERCISE":
-            return{
-                exercises:state.exercises.filter(item=>item.id!==action.payload)
-            }
-            
-        case "RESET":
-            return{
-                exercises:[]
-            }
-        case "LOAD_WORKOUT_EXERCISES":
-            return{
-                ...state,
-                exercises:action.payload
-            }
-        default:
-            return state
-    }
-}
+export const LoadWorkoutExercises = (id) => async (dispatch) => {
+  try {
+    console.log("id+", id);
+    const workoutExercises = await fetch(
+      `http://localhost:5000/users/user/workoutExercises`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      }
+    ).then((res) => res.json());
+    console.log("workoutExerc", workoutExercises);
+    dispatch(loadWorkoutExercises(workoutExercises));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-export const LoadWorkoutExercises =()=>async(dispatch)=>{
-    try {
-        const workoutExercises=await fetch("http://localhost:5000/workoutExercises").then(res=>res.json())
-        console.log(workoutExercises)
-        dispatch(loadWorkoutExercises(workoutExercises))
+export const DeleteWorkoutExercises = (id, userId) => async (dispatch) => {
+  try {
+    await fetch("http://localhost:5000/users/user/workoutExercises", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    }).then((res) => res.json());
 
-    } catch (error) {
-        console.error(error)
-    }
-}
+    const workoutExercises = await fetch(
+      `http://localhost:5000/users/user/workoutExercises`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: userId }),
+      }
+    ).then((res) => res.json());
 
-export const UpdateWorkoutExercises =()=>async(dispatch)=>{
-    try {
-        const workoutExercises=await fetch("http://localhost:5000/workoutExercises", {
-            method: "PUT",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(workoutExercises)
-        })
-        dispatch(loadWorkoutExercises(workoutExercises))
+    dispatch(loadWorkoutExercises(workoutExercises));
 
-    } catch (error) {
-        console.error(error)
-    }
-}
+    console.log("workoutExerc", workoutExercises);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export default workoutExercisesReducer;

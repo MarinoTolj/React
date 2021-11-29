@@ -1,0 +1,10 @@
+#home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-items {
+  margin-top: 1em;
+}
