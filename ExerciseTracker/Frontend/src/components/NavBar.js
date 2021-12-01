@@ -1,7 +1,9 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 export default function NavBar({ id }) {
+  const user = useSelector((state) => state.user.user);
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -11,7 +13,7 @@ export default function NavBar({ id }) {
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/exercises">Exercises</Nav.Link>
-            <Nav.Link href={`/users/user${id}`}>Your Workouts</Nav.Link>
+            <Nav.Link href={`/users/user${user.id}`}>Your Workouts</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

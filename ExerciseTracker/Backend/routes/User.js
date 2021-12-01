@@ -17,8 +17,16 @@ router.post("/registration", async (req, res) => {
         "INSERT INTO users (username, email, password) VALUES($1, $2, $3) RETURNING *;",
         [username, email, hashedPassword]
       );
-      const jwtToken = jwtGenerator(newUser.rows[0].user_id);
-      res.json({ jwtToken, id: newUser.rows[0].user_id });
+
+      const jwtToken = jwtGenerator(
+        newUser.rows[0].user_id,
+        newUser.rows[0].username
+      );
+      res.json({
+        jwtToken,
+        id: newUser.rows[0].user_id,
+        name: newUser.rows[0].username,
+      });
     }
   } catch (error) {
     console.error("error:" + error.message);
@@ -37,8 +45,16 @@ router.post("/login", async (req, res, next) => {
       const isMatch = await bcrypt.compare(password, user.rows[0].password);
 
       if (isMatch) {
-        const jwtToken = jwtGenerator(user.rows[0].user_id);
-        res.json({ msg: "Success login", jwtToken, id: user.rows[0].user_id });
+        const jwtToken = jwtGenerator(
+          user.rows[0].user_id,
+          user.rows[0].username
+        );
+        res.json({
+          msg: "Success login",
+          jwtToken,
+          id: user.rows[0].user_id,
+          name: user.rows[0].username,
+        });
       } else {
         res.json({ msg: "Incorrect pass or email", jwtToken: null, id: false });
       }
@@ -46,13 +62,18 @@ router.post("/login", async (req, res, next) => {
       res.json({ msg: "User not found", jwtToken: null, id: false });
     }
   } catch (error) {
-    console.error(error.message);
+    console.error("hello", error.message);
   }
 });
 
 router.post("/verify", authorize, (req, res) => {
   try {
-    res.json({ msg: "Authorized", id: req.user.id, status: 200 });
+    res.json({
+      msg: "Authorized",
+      id: req.user.id,
+      status: 200,
+      name: req.user.name,
+    });
   } catch (error) {
     console.error(error.message);
     res.json({ msg: error.message, id: null, status: error.status });

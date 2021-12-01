@@ -3,7 +3,7 @@ import WorkoutList from "./WorkoutList";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { resetWorkoutExercises } from "../actions";
+import { resetWorkoutExercises, deleteUser } from "../actions";
 import { useDispatch } from "react-redux";
 import { LoadWorkoutExercises } from "../reducers/workoutExercises";
 
@@ -39,6 +39,7 @@ export default function User() {
       localStorage.removeItem("token");
       dispatch(resetWorkoutExercises());
       toast.success("Logout Success");
+      dispatch(deleteUser());
       navigate("/home");
     } catch (error) {
       console.error(error.message);

@@ -28,6 +28,7 @@ export const LoadAvailableExercises = () => async (dispatch) => {
 export const DeleteAvailableExercise = (exerciseId) => async (dispatch) => {
   try {
     console.log("del", exerciseId);
+
     await fetch("http://localhost:5000/exercises/deleteExercise", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

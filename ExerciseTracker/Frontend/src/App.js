@@ -1,5 +1,4 @@
 import "./App.css";
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ExercisesList from "./components/ExercisesList";
@@ -16,49 +15,35 @@ import { LoadTypes } from "./reducers/exercisesTypes";
 import { LoadAvailableExercises } from "./reducers/availableExercises";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+
 function App() {
   const exercisesTypes = useSelector(
     (state) => state.typesOfExercises.typesOfExercises
   );
+  const user = useSelector((state) => state.user.user);
+
   toast.configure();
   const dispatch = useDispatch();
-  const [id, setId] = useState(0);
-
-  const checkAuthenticated = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/users/verify", {
-        method: "POST",
-        headers: { jwt_token: localStorage.token },
-      });
-
-      const parseRes = await res.json();
-      console.log(parseRes);
-      if (parseRes.status === 200) setId(parseRes.id);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   useEffect(() => {
     dispatch(LoadTypes());
     dispatch(LoadAvailableExercises());
-    checkAuthenticated();
   }, []);
 
   return (
     <div className="App">
       {
         <Router>
-          <NavBar id={id} />
+          <NavBar />
 
           <Routes>
             <Route path="/exercises" element={<ExercisesList />} />
 
-            <Route path="/home" element={<Home id={id} />} />
-            <Route path="/" element={<Home id={id} />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
 
             <Route path="/users/user:id" element={<User />} />
-            <Route path="/users/login" element={<LoginPage />} />
+            {!user.id && <Route path="/users/login" element={<LoginPage />} />}
             <Route path="/users/registration" element={<Registration />} />
 
             <Route

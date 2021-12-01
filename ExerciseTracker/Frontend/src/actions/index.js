@@ -11,6 +11,19 @@ export const resetWorkoutExercises = () => {
   };
 };
 
+export const fetchUser = (id, name) => {
+  return {
+    type: "FETCH_USER",
+    payload: { id, name },
+  };
+};
+
+export const deleteUser = () => {
+  return {
+    type: "DELETE_USER",
+  };
+};
+
 export const loadTypes = (types) => ({
   type: "LOAD_TYPES",
   payload: types,

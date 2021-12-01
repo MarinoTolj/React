@@ -3,11 +3,14 @@ import { Form, Button } from "react-bootstrap";
 import "../LoginPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../actions";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -35,7 +38,7 @@ export default function LoginPage() {
       if (jsonData.jwtToken) {
         localStorage.setItem("token", jsonData.jwtToken);
         toast.success(jsonData.msg);
-
+        dispatch(fetchUser(jsonData.id, jsonData.name));
         navigate(`/users/user${jsonData.id}`);
       } else {
         toast.error(jsonData.msg);
@@ -69,7 +72,7 @@ export default function LoginPage() {
         </Form.Group>
         <Button
           type="submit"
-          class="btn mt-2 btn-primary"
+          className="btn mt-2 btn-primary"
           onClick={handleClick}
         >
           Login
